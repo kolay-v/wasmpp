@@ -18,16 +18,17 @@ bool verify_header (std::vector<uint8_t> buffer) {
 int main () {
   std::ifstream file("test.wasm", std::ios::binary | std::ios::ate);
   std::streamsize size = file.tellg();
+  if (size < 0) {
+    throw std::runtime_error("cant read file size < 0");
+  }
   file.seekg(0, std::ios::beg);
   std::vector<uint8_t> buffer(size);
-  if (!file.read(reinterpret_cast<char*>(buffer.data()), size)) {
-    std::cout << "cant read file\n";
-    return 1;
+  file.read(reinterpret_cast<char*>(buffer.data()), size);
+  if (file.fail()) {
+    throw std::runtime_error("cant read file");
   }
-  if (verify_header(buffer)) {
-    std::cout << "succes";
-  } else {
-    std::cout << "invalid file format";
-    return 1;
+  if (!verify_header(buffer)) {
+    throw std::invalid_argument("Invalid file format");
   }
+  std::cout << "Succes";
 }
