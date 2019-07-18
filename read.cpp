@@ -1,11 +1,18 @@
 #include"pc.h"
 
+const int MAGIC_BYTES = 0x6d736100;
+const int VERSION_NUMBER = 1;
+
 uint32_t read_u32(std::vector<uint8_t> buffer, u_int32_t i) {
-  return (uint32_t)(buffer[i * 4] | buffer[i * 4 + 1] << 8 | buffer[i * 4 + 2] << 16 | buffer[i * 4 + 3] << 24);
+  uint32_t value = buffer[i];
+  value |= buffer[i + 1] << 8;
+  value |= buffer[i + 2] << 16;
+  value |= buffer[i + 3] << 24;
+  return value;
 }
 
 bool verify_header (std::vector<uint8_t> buffer) {
-  return read_u32(buffer, 0) == 0x6d736100 && read_u32(buffer, 1) == 1;
+  return read_u32(buffer, 0) == MAGIC_BYTES && read_u32(buffer, 4) == VERSION_NUMBER;
 }
 
 int main () {
