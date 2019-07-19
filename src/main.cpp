@@ -16,7 +16,7 @@ bool verify_header (std::vector<uint8_t> buffer) {
 }
 
 int main () {
-  std::ifstream file("test.wasm", std::ios::binary | std::ios::ate);
+  std::ifstream file("../test.wasm", std::ios::binary | std::ios::ate);
   std::streamsize size = file.tellg();
   if (size < 0) {
     throw std::runtime_error("cant read file size < 0");
