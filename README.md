@@ -10,4 +10,5 @@ Should also work on windows.
 ```bash
 mkdir build && cd build
 cmake ..
-cmake --build .```
+cmake --build .
+```
