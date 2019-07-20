@@ -23,7 +23,7 @@ int main () {
   }
   file.seekg(0, std::ios::beg);
   std::vector<uint8_t> buffer;
-  buffer.reserve(size);
+  buffer.reserve((uint8_t)size);
   file.read((char*)buffer.data(), size);
   if (file.fail()) {
     throw std::runtime_error("cant read file");
