@@ -1,0 +1,10 @@
+language: cpp
+os:
+  - linux
+  - osx
+  - windows
+scripts:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build .
