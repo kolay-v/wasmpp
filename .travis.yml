@@ -3,7 +3,7 @@ os:
   - linux
   - osx
   - windows
-scripts:
+script:
   - mkdir build
   - cd build
   - cmake ..
