@@ -20,3 +20,4 @@ file(GLOB PARSER_SOURCE "${PROJECT_SOURCE_DIR}/parser/*.cpp")
 # add the executable
 add_library(parser ${PARSER_SOURCE})
 add_executable(wasmpp ${RUNNER_SOURCE})
+target_link_libraries(wasmpp parser)

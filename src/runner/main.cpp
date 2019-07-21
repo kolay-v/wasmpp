@@ -1,18 +1,11 @@
 #include"../pc.hpp"
+#include"../parser/wasm-stream.hpp"
 
-const int MAGIC_BYTES = 0x6d736100;
-const int VERSION_NUMBER = 1;
+static const int MAGIC_BYTES = 0x6d736100;
+static const int VERSION_NUMBER = 1;
 
-std::uint32_t read_u32(std::vector<uint8_t> &buffer, size_t i) {
-  uint32_t value = buffer[i];
-  value |= buffer[i + 1] << 8;
-  value |= buffer[i + 2] << 16;
-  value |= buffer[i + 3] << 24;
-  return value;
-}
-
-bool verify_header (std::vector<uint8_t> &buffer) {
-  return read_u32(buffer, 0) == MAGIC_BYTES && read_u32(buffer, 4) == VERSION_NUMBER;
+bool verify_header(WASMStream stream) {
+  return stream.read_u32() == MAGIC_BYTES && stream.read_u32() == VERSION_NUMBER;
 }
 
 int main () {
@@ -28,7 +21,8 @@ int main () {
   if (file.fail()) {
     throw std::runtime_error("cant read file");
   }
-  if (!verify_header(buffer)) {
+  WASMStream stream = WASMStream(&buffer);
+  if (!verify_header(stream)) {
     throw std::invalid_argument("Invalid file format");
   }
   std::cout << "Succes";
