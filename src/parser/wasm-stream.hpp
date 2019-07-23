@@ -1,5 +1,5 @@
 #pragma once
-#include "../pc.hpp"
+#include <pc.hpp>
 
 class WASMStream {
 public:

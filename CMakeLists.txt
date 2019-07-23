@@ -14,10 +14,11 @@ set (PROJECT_SOURCE_DIR "${PROJECT_SOURCE_DIR}/src")
 
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
-include_directories("${PROJECT_BINARY_DIR}")
 file(GLOB RUNNER_SOURCE "${PROJECT_SOURCE_DIR}/runner/*.cpp")
 file(GLOB PARSER_SOURCE "${PROJECT_SOURCE_DIR}/parser/*.cpp")
 # add the executable
-add_library(parser ${PARSER_SOURCE})
+add_library(wasmpp_compiler STATIC ${PARSER_SOURCE})
 add_executable(wasmpp ${RUNNER_SOURCE})
-target_link_libraries(wasmpp parser)
+include_directories("${PROJECT_SOURCE_DIR}")
+target_include_directories(wasmpp PRIVATE "${PROJECT_SOURCE_DIR}/parser")
+target_link_libraries(wasmpp wasmpp_compiler)

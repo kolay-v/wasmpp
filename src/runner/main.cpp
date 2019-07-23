@@ -1,8 +1,9 @@
-#include"../pc.hpp"
-#include"../parser/wasm-stream.hpp"
+#include <pc.hpp>
+#include <wasm-stream.hpp>
+#include <exceptions.hpp>
 
-static const int MAGIC_BYTES = 0x6d736100;
-static const int VERSION_NUMBER = 1;
+#define MAGIC_BYTES 0x6d736100
+#define VERSION_NUMBER 1
 
 bool verify_header(WASMStream stream) {
   return stream.read_u32() == MAGIC_BYTES && stream.read_u32() == VERSION_NUMBER;
@@ -23,7 +24,7 @@ int main () {
   }
   WASMStream stream = WASMStream(&buffer);
   if (!verify_header(stream)) {
-    throw std::invalid_argument("Invalid file format");
+    throw CompileError(/* "Invalid file format" */);
   }
   std::cout << "Succes";
 }
