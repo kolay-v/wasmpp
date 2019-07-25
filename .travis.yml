@@ -4,8 +4,7 @@ os:
   - osx
 dist: bionic
 script:
-  - mkdir build
-  - cd build
+  - mkdir buil & cd build
   - cmake ..
   - cmake --build .
   - ./wasmpp
